@@ -2,14 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://botmonster.com/jquery-bootpag/jquery.bootpag.js"></script>
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -223,23 +222,11 @@ nav.sidebar,
     nav.sidebar a {
         padding-right: 13px;
     }
-    .checkbox,
-    .radio {
-        float: left;
-        position: relative;
-        display: block;
-        width: 29%;
-        margin-top: 0px;
-        margin-bottom: 0px;
-    }
+    .
     /*adds border top to first nav box */
     
     nav.sidebar .navbar-nav > li:first-child {
         border-top: 1px #e5e5e5 solid;
-    }
-    #js-upload-submit {
-        margin-left: 208px;
-        margin-bottom: 8px;
     }
     .h4 {
         font-size: 18px;
@@ -395,175 +382,163 @@ section {
 }
 </style>
 <body>
-<div id="snackbar"></div>
-<nav class="navbar navbar-inverse sidebar" role="navigation">
-   <div class="container-fluid">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+    <div id="snackbar"></div>
+    <nav class="navbar navbar-inverse sidebar" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
          <span class="sr-only">Toggle navigation</span>
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
          <span class="icon-bar"></span>
          </button>
-         <a class="navbar-brand" href="#" style="color:white;">Apollo Pharma</a>
-      </div>
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-         <ul class="nav navbar-nav">
-            <li class="active"><a href="#patientList"  onclick="getPatientInfo()" data-toggle="tab">Patient List<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
-            <li ><a href="#patientinfo" data-toggle="tab">Add new<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon glyphicon-list-alt"></span></a></li>
-            <li ><a href="#profile" data-toggle="tab">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
-            
-         </ul>
-      </div>
-   </div>
-</nav>
-<div class="main">
-<div class="tab-content">
-   <div class="tab-pane active" id="patientList">
-   <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
-   <table id= "patientDetail"class="table table-striped table-bordered">
-  <thead class="thead-inverse"style="background-color: gainsboro;">
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Age</th>
-	  <th>Gender</th>
-      <th>DOB</th>
-      <th>Phone</th>
-    </tr>
-  </thead>
-  <tbody>
-  </tbody>
-</table>
-
-   </div>
-   <div class="tab-pane" id="patientinfo">
-      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-         <div id="kycInfo" class="panel panel-default">
-            <div class="panel-heading" role="tab" id="headingOne">
-             
+                <a class="navbar-brand" href="#" style="color:white;">Apollo Pharma</a>
             </div>
-            <div id="collapseOne" class="jumbotron" role="tabpanel" aria-labelledby="headingOne">
-               <div class="panel-body">
-                  <div class="row">
-                     <h2 style="margin-left: 17px;">Patient Details</h2>
-                    <form action="" method="post" id="fm">
-						 <div class="form-group row">
-						  <label for="example-firstname-input" class="col-xs-2 col-form-label">Firstname<span style="color:red">*</span></label>
-						  <div class="col-xs-10">
-							<input class="form-control" onfocus="$(this).val('')" type="text" placeholder='Firstname' id="example-firstname-input" onkeypress="return onlyAlphabets(event,this)">
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-lastname-input"   class="col-xs-2 col-form-label">Lastname<span style="color:red">*</span></label>
-						  <div class="col-xs-10">
-							<input class="form-control"  onfocus="$(this).val('')" type="search" placeholder='Lastname' id="example-lastname-input"  onkeypress="return onlyAlphabets(event,this)">
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-age-input" class="col-xs-2 col-form-label">Age<span style="color:red">*</span></label>
-						  <div class="col-xs-10">
-							<input class="form-control" type="text" maxlength="3" placeholder='age' id="example-age-input" >
-							<input class="form-control" type="text" onkeypress="age()" value='Age required' id="example-ageError-input"style="display:none;color:red;" onfocus="toggleView(this)">
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-gender-input" class="col-xs-2 col-form-label">Gender<span style="color:red">*</span></label>
-						  
-						  <div class="col-xs-10">
-							<select class="form-control" id="example-gender-input">
-							<option value="select gender">Select gender</option>
-								  <option value="M">Male</option>
-								  <option value="F">Female</option>
-								</select>
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-dob-input" class="col-xs-2 col-form-label">Date of birth<span style="color:red">*</span></label>
-						  <div class="col-xs-10">
-							<input class="form-control" type="date" onfocus="$(this).css('color','gray')" placeholder="dd-mm-yyyy" id="example-dob-input">
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-phone-input" class="col-xs-2 col-form-label">phone<span style="color:red">*</span></label>
-						  <div class="col-xs-10">
-							<input class="form-control" type="text"   onfocus="$(this).val('');$(this).css('color','gray')" placeholder='phone no.' maxlength="10" onkeypress="phoneno()" id="example-phone-input">
-						  </div>
-						</div>
-						<div class="form-group row">
-						  <label for="example-freetext-input" class="col-xs-2 col-form-label">comment</label>
-						  <div class="col-xs-10">
-							<input class="form-control" type="text"  placeholder='comment' id="example-freetext-input">
-						  </div>
-						</div>
-						<div class="row">
-						<div style="width: 656px;text-align: center;">
-                           <button type="button" class="btn btn-sm btn-primary" id="js-submit">Submit</button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#patientList" onclick="getPatientInfo()" data-toggle="tab">Patient List<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+                    <li><a href="#patientinfo" data-toggle="tab">Add new<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon glyphicon-list-alt"></span></a></li>
+                    <li><a href="#profile" data-toggle="tab">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="main">
+        <div class="tab-content">
+            <div class="tab-pane active" id="patientList">
+                <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+                <table id="patientDetail" class="table table-striped table-bordered">
+                    <thead class="thead-inverse" style="background-color: gainsboro;">
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>DOB</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane" id="patientinfo">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div id="kycInfo" class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
                         </div>
-						</div>
-						</form>
-						
-                  </div>
-                 
-               </div>
-               <!-- Drop Zone -->
+                        <div id="collapseOne" class="jumbotron" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <h2 style="margin-left: 17px;">Patient Details</h2>
+                                    <form action="" method="post" id="fm">
+                                        <div class="form-group row">
+                                            <label for="example-firstname-input" class="col-xs-2 col-form-label">Firstname<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" onfocus="$(this).val('')" type="text" placeholder='Firstname' id="example-firstname-input" onkeypress="return onlyAlphabets(event,this)">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-lastname-input" class="col-xs-2 col-form-label">Lastname<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" onfocus="$(this).val('')" type="search" placeholder='Lastname' id="example-lastname-input" onkeypress="return onlyAlphabets(event,this)">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-age-input" class="col-xs-2 col-form-label">Age<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" type="text" maxlength="3" placeholder='Age' id="example-age-input">
+                                                <input class="form-control" type="text" onkeypress="age()" value='Age required' id="example-ageError-input" style="display:none;color:red;" onfocus="toggleView(this)">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-gender-input" class="col-xs-2 col-form-label">Gender<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <select class="form-control" id="example-gender-input">
+												<option value="select gender">Select gender</option>
+													  <option value="M">Male</option>
+													  <option value="F">Female</option>
+												</select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-dob-input" class="col-xs-2 col-form-label">Date of birth<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" type="date" onfocus="$(this).css('color','gray')" placeholder="dd-mm-yyyy" id="example-dob-input">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-phone-input" class="col-xs-2 col-form-label">Phone<span style="color:red">*</span></label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" type="text" onfocus="$(this).val('');$(this).css('color','gray')" placeholder='Phone no.' maxlength="10" onkeypress="phoneno()" id="example-phone-input">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="example-freetext-input" class="col-xs-2 col-form-label">Comment</label>
+                                            <div class="col-xs-10">
+                                                <input class="form-control" type="text" placeholder='Comment' id="example-freetext-input">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div style="width: 656px;text-align: center;">
+                                                <button type="button" class="btn btn-sm btn-primary" id="js-submit">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <!--
-      <!-- Content Here -->
-</div>
+        </div>
 <script>
-var entered = 0
-function reset(input){
-var id="#"+$(input).prop(id);
-$(id).val("");
-console.log("sdssd");
-console.log($(id));
-$(id).css("color","gray");
+var entered = 0;
+var count = 0;
+
+function reset(input) {
+    var id = "#" + $(input).prop(id);
+    $(id).val("");
+    $(id).css("color", "gray");
 }
+
 function search() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("patientDetail");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-	td2= tr[i].getElementsByTagName("td")[1];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }       
-  }
-  }
-function getPatientInfo(){
- $.ajax({url: "http://localhost:8080/dashboard/patientInfo.php", success: function(result){
- var data=JSON.parse(result);
- data=data['patientDetails'];
- var str="";
- length = Object.keys(data).length;
- $.each(data, function(index, value) {
-	 str+="<tr>";
-	 str+="<td>"+value.firstname+"</td>";
-	 str+="<td>"+value.lastname+"</td>";
-	 str+="<td>"+value.age+"</td>";
-	 str+="<td>"+value.gender+"</td>";
-	 str+="<td>"+value.date_of_birth+"</td>";
-	 str+="<td>"+value.phone+"</td>";
-	 str+="</tr>";
-});
-$(".table tbody").empty();	
- $(".table tbody").append(str);
-    }});
-	}
-	getPatientInfo();
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("patientDetail");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        td2 = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+
+function getPatientInfo() {
+    var count;
+    $.ajax({
+        url: "http://localhost:8080/dashboard/patientInfo.php?pageNumber=1",
+        async: false,
+        success: function(result) {
+            var data = JSON.parse(result);
+            count = data['count'];
+            data = data['patientDetails'];
+            refreshTable(data);
+        }
+    });
+    return count;
+}
+count = getPatientInfo();
+
 function htmlbodyHeightUpdate() {
     var height3 = $(window).height()
     var height1 = $('.nav').height() + 50
@@ -577,33 +552,36 @@ function htmlbodyHeightUpdate() {
     }
     ".tab-content .tab-pane"
 }
-function toggleView(a){
-console.log("enter");
-$(a).hide();
-$('#example-age-input').show();
+
+function toggleView(a) {
+    $(a).hide();
+    $('#example-age-input').show();
 }
-function age(){          
-            $('#example-age-input').keypress(function(e) {
-                var a = [];
-                var k = e.which;
-                for (i = 48; i < 51; i++)
-                    a.push(i);
 
-                if (!(a.indexOf(k)>=0))
-                    e.preventDefault();
-            });
-        }
-function phoneno(){          
-            $('#example-phone-input').keypress(function(e) {
-                var a = [];
-                var k = e.which;
-                for (i = 48; i < 58; i++)
-                    a.push(i);
+function age() {
+    $('#example-age-input').keypress(function(e) {
+        var a = [];
+        var k = e.which;
+        for (i = 48; i < 51; i++)
+            a.push(i);
 
-                if (!(a.indexOf(k)>=0))
-                    e.preventDefault();
-            });
-        }
+        if (!(a.indexOf(k) >= 0))
+            e.preventDefault();
+    });
+}
+
+function phoneno() {
+    $('#example-phone-input').keypress(function(e) {
+        var a = [];
+        var k = e.which;
+        for (i = 48; i < 58; i++)
+            a.push(i);
+
+        if (!(a.indexOf(k) >= 0))
+            e.preventDefault();
+    });
+}
+
 function toggleIcon(e) {
     $(e.target)
         .prev('.panel-heading')
@@ -620,25 +598,21 @@ $(".nav li").on("click", function() {
     var id = $(this).children().prop('href').toString();
     id = id.split("#");
     $("#" + id[1]).addClass("active");
-
-
-    // $("#"+id).addClass("active");
 });
 
 function submitForm(a) {
     a.on('submit', (function(e) {
         e.preventDefault();
         var formData = new FormData(this);
-		formData.append('firstname',$("#example-firstname-input").val());
-		formData.append('lastname',$("#example-lastname-input").val());
-		formData.append('age',$("#example-age-input").val());
-		formData.append('dob',$("#example-dob-input").val());
-		formData.append('gender',$("#example-gender-input").val());
-		formData.append('phone',$("#example-phone-input").val());
-		formData.append('freetext',$("#example-freetext-input").val());
+        formData.append('firstname', $("#example-firstname-input").val());
+        formData.append('lastname', $("#example-lastname-input").val());
+        formData.append('age', $("#example-age-input").val());
+        formData.append('dob', $("#example-dob-input").val());
+        formData.append('gender', $("#example-gender-input").val());
+        formData.append('phone', $("#example-phone-input").val());
+        formData.append('freetext', $("#example-freetext-input").val());
         $.ajax({
-            beforeSend: function() {
-            },
+            beforeSend: function() {},
             url: "http://localhost:8080/dashboard/insertPatientInfo.php",
             type: "POST",
             data: formData,
@@ -646,22 +620,23 @@ function submitForm(a) {
             cache: false,
             processData: false,
             success: function(data) {
-			  $("#snackbar").empty();
+                $("#snackbar").empty();
                 $("#snackbar").append("1 record added successfully..!");
-             myFunction();
-			 $("#fm").trigger("reset");
+                myFunction();
+                $("#fm").trigger("reset");
             }
         });
-        
-		a.unbind('submit');
+
+        a.unbind('submit');
     }));
     a.submit();
 }
 
-function showError(a){
-$('#DtOfInc').show();
-$(a).hide();
+function showError(a) {
+    $('#DtOfInc').show();
+    $(a).hide();
 }
+
 function myFunction() {
     var x = document.getElementById("snackbar")
     x.className = "show";
@@ -670,8 +645,8 @@ function myFunction() {
     }, 2000);
 }
 
-function onlyAlphabets(e,a) {
-	$(a).css('color', 'gray');
+function onlyAlphabets(e, a) {
+    $(a).css('color', 'gray');
     var regex = /^[0-9A-Za-z\s\-]+$/;
     var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
     if (regex.test(str)) {
@@ -682,56 +657,66 @@ function onlyAlphabets(e,a) {
     return false;
 
 }
-function validateForm(a){
-var flag=false;
-var firstname=$("#example-firstname-input");
-var lastname=$("#example-lastname-input");
-var dob=$("#example-dob-input");
-var gender=$("#example-gender-input");
-var phone=$("#example-phone-input");
-var age=$("#example-age-input");
-var comment=$("#example-freetext-input");
-var ageError=$("#example-ageError-input");
-if(firstname.val()==""){
-	firstname.val('firstname required');
-	firstname.css("color","red");
-	flag=true;
-}
-if(lastname.val()==""){
-	lastname.val('lastname required');
-	lastname.css("color","red");
-	flag=true;
-}
-if(dob.val()==""){
-	dob.val('date of birth required');
-	dob.css("color","red");
-	flag=true;
-}
-if(gender.val()=="select gender"){
-	gender.focus();
-	flag=true;
-}
-if(phone.val()==""){
-	phone.val('phone no required');
-	phone.css("color","red");
-	flag=true;
-}
-if(age.val()==""){
-	ageError.show();
-	age.hide();
-	//age.css("color","red");
-	flag=true;
-}
-var form=$(a).parent().parent();
-console.log(form);
-if(!flag)
-submitForm(form);
+
+function validateForm(a) {
+    var flag = false;
+    var firstname = $("#example-firstname-input");
+    var lastname = $("#example-lastname-input");
+    var dob = $("#example-dob-input");
+    var gender = $("#example-gender-input");
+    var phone = $("#example-phone-input");
+    var age = $("#example-age-input");
+    var comment = $("#example-freetext-input");
+    var ageError = $("#example-ageError-input");
+    if (firstname.val() == "") {
+        firstname.val('firstname required');
+        firstname.css("color", "red");
+        flag = true;
+    }
+    if (lastname.val() == "") {
+        lastname.val('lastname required');
+        lastname.css("color", "red");
+        flag = true;
+    }
+    if (dob.val() == "") {
+        dob.val('date of birth required');
+        dob.css("color", "red");
+        flag = true;
+    }
+    if (gender.val() == "select gender") {
+        gender.focus();
+        flag = true;
+    }
+    if (phone.val() == "") {
+        phone.val('phone no required');
+        phone.css("color", "red");
+        flag = true;
+    }
+    if (age.val() == "") {
+        ageError.show();
+        age.hide();
+        flag = true;
+    }
+    var form = $(a).parent().parent();
+    if (!flag)
+        submitForm(form);
 }
 $(document).ready(function() {
-$('#patientDetail').DataTable();
-console.log( $("#js-submit"));
+    $('#patientDetail').bootpag({
+        total: (count / 10) + 1,
+        page: 1,
+        maxVisible: 5
+    }).on('page', function(event, num) {
+        $.ajax({
+            url: "http://localhost:8080/dashboard/patientInfo.php?pageNumber=" + num,
+        }).done(function(data) {
+            data = JSON.parse(data);
+            data = data['patientDetails'];
+            refreshTable(data);
+        });
+    });
+
     $("#js-submit").click(function() {
-	console.log("eeewew");
         validateForm(this);
     });
 
@@ -746,43 +731,36 @@ console.log( $("#js-submit"));
     });
 });
 
-$(function() {
-
-
-    var obj = $(".drop");
-
-    obj.on('dragenter', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
+function refreshTable(data) {
+    var str = "";
+    length = Object.keys(data).length;
+    $.each(data, function(index, value) {
+        str += "<tr>";
+        str += "<td>" + value.firstname + "</td>";
+        str += "<td>" + value.lastname + "</td>";
+        str += "<td>" + value.age + "</td>";
+        str += "<td>" + value.gender + "</td>";
+        str += "<td>" + value.date_of_birth + "</td>";
+        str += "<td>" + value.phone + "</td>";
+        str += "</tr>";
     });
-
-    obj.on('dragover', function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-    });
-
-    obj.on('drop', function(e) {
-
-        e.preventDefault();
-        var files = e.originalEvent.dataTransfer.files;
-        onFileSelected(e, files);
-    });
-
-
-});
-function isValidDate(date){
-	 var re = /^(\d{2})[-\/](\d{2})[-\/](\d{4})$/;
-     var match = re.exec(date);
-	 if(match!=null){
-    var test    =   new Date(match[3], match[1] - 1, match[2]);
-    return (
-        (test.getMonth() == match[1] - 1) &&
-        (test.getDate() == match[2]) &&
-        (test.getFullYear() == match[3])
-    );
-	}
-	else return false;
+    $("#patientDetail tbody").empty();
+    $("#patientDetail tbody").html(str);
 }
+
+function isValidDate(date) {
+    var re = /^(\d{2})[-\/](\d{2})[-\/](\d{4})$/;
+    var match = re.exec(date);
+    if (match != null) {
+        var test = new Date(match[3], match[1] - 1, match[2]);
+        return (
+            (test.getMonth() == match[1] - 1) &&
+            (test.getDate() == match[2]) &&
+            (test.getFullYear() == match[3])
+        );
+    } else return false;
+}
+
 function testThis(val) {
 
     var string = $.trim(val);
@@ -796,3 +774,4 @@ function testThis(val) {
 </script>
 </body>
 </html>
+	
