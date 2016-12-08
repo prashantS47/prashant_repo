@@ -1,0 +1,798 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<style>
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+.panel-title > a span {
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+}
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: 30px;
+        opacity: 1;
+    }
+}
+@-webkit-keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+@keyframes fadeout {
+    from {
+        bottom: 30px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0;
+        opacity: 0;
+    }
+}
+body,
+html {
+    font-family: 'Raleway', sans-serif;
+    height: 100%;
+}
+.drop {
+    width: 100%;
+    height: 100px;
+    /* color: #bdc3c7; */
+    
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    font-size: 250%;
+}
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), local('Raleway-Regular'), url(http://fonts.gstatic.com/s/raleway/v11/yQiAaD56cjx1AooMTSghGfY6323mHUZFJMgTvxaG2iE.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+
+@font-face {
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Raleway'), local('Raleway-Regular'), url(http://fonts.gstatic.com/s/raleway/v11/0dTEPzkLWceF7z0koJaX1A.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+.form-control {
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 0;
+    outline: 0;
+    border-radius: 0px;
+    background: transparent;
+    border-bottom: 2px solid #ccc;
+    width: 72%;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+.upload-drop-zone {
+    border-color: #ccc;
+    line-height: 185px;
+    text-align: center;
+    height: 101px;
+    border-width: 2px;
+    margin-bottom: 20px;
+}
+/* skin.css Style*/
+
+.upload-drop-zone.drop {
+    color: #222;
+    border-color: #222;
+}
+/*Remove rounded coners*/
+
+tab-content {
+    width: 600px;
+    float: left;
+    background-color: deepskyblue;
+}
+nav.sidebar.navbar {
+    border-radius: 0px;
+}
+nav.sidebar,
+.main {
+    -webkit-transition: margin 200ms ease-out;
+    -moz-transition: margin 200ms ease-out;
+    -o-transition: margin 200ms ease-out;
+    transition: margin 200ms ease-out;
+}
+.tab-pane {
+    display: none;
+}
+#myInput {
+  background-image: url('http://www.w3schools.com/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+/* Add gap to nav and right windows.*/
+
+.main {
+    padding: 10px 10px 0 10px;
+}
+/* .....NavBar: Icon only with coloring/layout.....*/
+/*small/medium side display*/
+
+@media (min-width: 768px) {
+    /*Allow main to be next to Nav*/
+    
+    .main {
+        position: absolute;
+        width: calc(100% - 40px);
+        /*keeps 100% minus nav size*/
+        
+        margin-left: 40px;
+        float: right;
+    }
+    /*lets nav bar to be showed on mouseover*/
+    
+    nav.sidebar:hover + .main {
+        margin-left: 200px;
+    }
+    /*Center Brand*/
+    
+    nav.sidebar.navbar.sidebar>.container .navbar-brand,
+    .navbar>.container-fluid .navbar-brand {
+        margin-left: 0px;
+    }
+    /*Center Brand*/
+    
+    nav.sidebar .navbar-brand,
+    nav.sidebar .navbar-header {
+        text-align: center;
+        width: 100%;
+        margin-left: 0px;
+    }
+    .checkbox+.checkbox,
+    .radio+.radio {
+        margin-top: 0px;
+    }
+    /*Center Icons*/
+    
+    nav.sidebar a {
+        padding-right: 13px;
+    }
+    .checkbox,
+    .radio {
+        float: left;
+        position: relative;
+        display: block;
+        width: 29%;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+    /*adds border top to first nav box */
+    
+    nav.sidebar .navbar-nav > li:first-child {
+        border-top: 1px #e5e5e5 solid;
+    }
+    #js-upload-submit {
+        margin-left: 208px;
+        margin-bottom: 8px;
+    }
+    .h4 {
+        font-size: 18px;
+        text-align: center;
+    }
+    /*adds border to bottom nav boxes*/
+    
+    nav.sidebar .navbar-nav > li {
+        border-bottom: 1px #e5e5e5 solid;
+    }
+	nav.sidebar .navbar-nav > li {
+		border-bottom:0px;
+		}
+		nav.sidebar .navbar-nav > li:first-child {
+			border-top: 0px;
+		}
+    /* Colors/style dropdown box*/
+    @media (min-width: 768px)
+		nav.sidebar .navbar-nav > li:first-child {
+			border-top: 0px;
+		}
+		@media (min-width: 768px)
+		nav.sidebar .navbar-nav > li {
+		border-bottom:0px;
+		}
+    nav.sidebar .navbar-nav .open .dropdown-menu {
+        position: static;
+        float: none;
+        width: auto;
+        margin-top: 0;
+        background-color: transparent;
+        border: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    /*allows nav box to use 100% width*/
+    
+    nav.sidebar .navbar-collapse,
+    nav.sidebar .container-fluid {
+        padding: 0 0px 0 0px;
+    }
+    /*colors dropdown box text */
+    
+    .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+        color: #777;
+    }
+    /*gives sidebar width/height*/
+    
+    nav.sidebar {
+        width: 200px;
+        height: 100%;
+        margin-left: -160px;
+        float: left;
+        z-index: 8000;
+        margin-bottom: 0px;
+    }
+    /*give sidebar 100% width;*/
+    
+    nav.sidebar li {
+        width: 100%;
+    }
+    /* Move nav to full on mouse over*/
+    
+    nav.sidebar:hover {
+        margin-left: 0px;
+    }
+    /*for hiden things when navbar hidden*/
+    
+    .forAnimate {
+        opacity: 0;
+    }
+}
+.panel-group .panel {
+    border-radius: 0;
+    box-shadow: none;
+    border-color: #EEEEEE;
+}
+.panel-default > .panel-heading {
+    padding: 0;
+    border-radius: 0;
+    color: #212121;
+    background-color: #EEEEEE;
+    border-color: #EEEEEE;
+}
+.panel-title {
+    font-size: 14px;
+}
+.panel-title > a {
+    display: block;
+    padding: 15px;
+    /* font-weight: 600; */
+    
+    font-family: sans-serif;
+    text-decoration: none;
+}
+.more-less {
+    float: right;
+    color: #212121;
+}
+#collapseOne {
+    background-color: #EEEEEE;
+}
+.row {
+        padding: 4px;
+    width: 95%;
+    /* top: 35px; */
+    margin: 0px auto;
+    margin-top: 17px;
+    z-index: 111;
+    margin-top: 8px;
+    background-color: white;
+}
+.panel-default > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #EEEEEE;
+}
+/* .....NavBar: Fully showing nav bar..... */
+
+@media (min-width: 1330px) {
+    /*Allow main to be next to Nav*/
+    
+    .main {
+        width: calc(100% - 200px);
+        /*keeps 100% minus nav size*/
+        
+        margin-left: 200px;
+    }
+    /*Show all nav*/
+    
+    nav.sidebar {
+        margin-left: 0px;
+        float: left;
+    }
+    /*Show hidden items on nav*/
+    
+    nav.sidebar .forAnimate {
+        opacity: 1;
+    }
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover,
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus {
+    color: #CCC;
+    background-color: transparent;
+}
+nav:hover .forAnimate {
+    opacity: 1;
+}
+section {
+    padding-left: 15px;
+}
+#kycInfo {
+    background-color: #EEEEEE;
+}
+</style>
+<body>
+<div id="snackbar"></div>
+<nav class="navbar navbar-inverse sidebar" role="navigation">
+   <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         </button>
+         <a class="navbar-brand" href="#" style="color:white;">Apollo Pharma</a>
+      </div>
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
+         <ul class="nav navbar-nav">
+            <li class="active"><a href="#patientList"  onclick="getPatientInfo()" data-toggle="tab">Patient List<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span></a></li>
+            <li ><a href="#patientinfo" data-toggle="tab">Add new<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon glyphicon-list-alt"></span></a></li>
+            <li ><a href="#profile" data-toggle="tab">Profile<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a></li>
+            
+         </ul>
+      </div>
+   </div>
+</nav>
+<div class="main">
+<div class="tab-content">
+   <div class="tab-pane active" id="patientList">
+   <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+   <table id= "patientDetail"class="table table-striped table-bordered">
+  <thead class="thead-inverse"style="background-color: gainsboro;">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Age</th>
+	  <th>Gender</th>
+      <th>DOB</th>
+      <th>Phone</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+
+   </div>
+   <div class="tab-pane" id="patientinfo">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+         <div id="kycInfo" class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+             
+            </div>
+            <div id="collapseOne" class="jumbotron" role="tabpanel" aria-labelledby="headingOne">
+               <div class="panel-body">
+                  <div class="row">
+                     <h2 style="margin-left: 17px;">Patient Details</h2>
+                    <form action="" method="post" id="fm">
+						 <div class="form-group row">
+						  <label for="example-firstname-input" class="col-xs-2 col-form-label">Firstname<span style="color:red">*</span></label>
+						  <div class="col-xs-10">
+							<input class="form-control" onfocus="$(this).val('')" type="text" placeholder='Firstname' id="example-firstname-input" onkeypress="return onlyAlphabets(event,this)">
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-lastname-input"   class="col-xs-2 col-form-label">Lastname<span style="color:red">*</span></label>
+						  <div class="col-xs-10">
+							<input class="form-control"  onfocus="$(this).val('')" type="search" placeholder='Lastname' id="example-lastname-input"  onkeypress="return onlyAlphabets(event,this)">
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-age-input" class="col-xs-2 col-form-label">Age<span style="color:red">*</span></label>
+						  <div class="col-xs-10">
+							<input class="form-control" type="text" maxlength="3" placeholder='age' id="example-age-input" >
+							<input class="form-control" type="text" onkeypress="age()" value='Age required' id="example-ageError-input"style="display:none;color:red;" onfocus="toggleView(this)">
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-gender-input" class="col-xs-2 col-form-label">Gender<span style="color:red">*</span></label>
+						  
+						  <div class="col-xs-10">
+							<select class="form-control" id="example-gender-input">
+							<option value="select gender">Select gender</option>
+								  <option value="M">Male</option>
+								  <option value="F">Female</option>
+								</select>
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-dob-input" class="col-xs-2 col-form-label">Date of birth<span style="color:red">*</span></label>
+						  <div class="col-xs-10">
+							<input class="form-control" type="date" onfocus="$(this).css('color','gray')" placeholder="dd-mm-yyyy" id="example-dob-input">
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-phone-input" class="col-xs-2 col-form-label">phone<span style="color:red">*</span></label>
+						  <div class="col-xs-10">
+							<input class="form-control" type="text"   onfocus="$(this).val('');$(this).css('color','gray')" placeholder='phone no.' maxlength="10" onkeypress="phoneno()" id="example-phone-input">
+						  </div>
+						</div>
+						<div class="form-group row">
+						  <label for="example-freetext-input" class="col-xs-2 col-form-label">comment</label>
+						  <div class="col-xs-10">
+							<input class="form-control" type="text"  placeholder='comment' id="example-freetext-input">
+						  </div>
+						</div>
+						<div class="row">
+						<div style="width: 656px;text-align: center;">
+                           <button type="button" class="btn btn-sm btn-primary" id="js-submit">Submit</button>
+                        </div>
+						</div>
+						</form>
+						
+                  </div>
+                 
+               </div>
+               <!-- Drop Zone -->
+            </div>
+         </div>
+      </div>
+   </div>
+   <!--
+      <!-- Content Here -->
+</div>
+<script>
+var entered = 0
+function reset(input){
+var id="#"+$(input).prop(id);
+$(id).val("");
+console.log("sdssd");
+console.log($(id));
+$(id).css("color","gray");
+}
+function search() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("patientDetail");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+	td2= tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1 || td2.innerHTML.toUpperCase().indexOf(filter) > -1 ) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+  }
+function getPatientInfo(){
+ $.ajax({url: "http://localhost:8080/dashboard/patientInfo.php", success: function(result){
+ var data=JSON.parse(result);
+ data=data['patientDetails'];
+ var str="";
+ length = Object.keys(data).length;
+ $.each(data, function(index, value) {
+	 str+="<tr>";
+	 str+="<td>"+value.firstname+"</td>";
+	 str+="<td>"+value.lastname+"</td>";
+	 str+="<td>"+value.age+"</td>";
+	 str+="<td>"+value.gender+"</td>";
+	 str+="<td>"+value.date_of_birth+"</td>";
+	 str+="<td>"+value.phone+"</td>";
+	 str+="</tr>";
+});
+$(".table tbody").empty();	
+ $(".table tbody").append(str);
+    }});
+	}
+	getPatientInfo();
+function htmlbodyHeightUpdate() {
+    var height3 = $(window).height()
+    var height1 = $('.nav').height() + 50
+    height2 = $('.main').height()
+    if (height2 > height3) {
+        $('html').height(Math.max(height1, height3, height2) + 10);
+        $('body').height(Math.max(height1, height3, height2) + 10);
+    } else {
+        $('html').height(Math.max(height1, height3, height2));
+        $('body').height(Math.max(height1, height3, height2));
+    }
+    ".tab-content .tab-pane"
+}
+function toggleView(a){
+console.log("enter");
+$(a).hide();
+$('#example-age-input').show();
+}
+function age(){          
+            $('#example-age-input').keypress(function(e) {
+                var a = [];
+                var k = e.which;
+                for (i = 48; i < 51; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+        }
+function phoneno(){          
+            $('#example-phone-input').keypress(function(e) {
+                var a = [];
+                var k = e.which;
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+        }
+function toggleIcon(e) {
+    $(e.target)
+        .prev('.panel-heading')
+        .find(".more-less")
+        .toggleClass('glyphicon-plus glyphicon-minus');
+}
+$('.panel-group').on('hidden.bs.collapse', toggleIcon);
+$('.panel-group').on('shown.bs.collapse', toggleIcon);
+$(".nav li").on("click", function() {
+    $(".nav li").removeClass("active");
+    $(this).addClass("active");
+    $(".tab-content>.tab-pane").removeClass('active');
+
+    var id = $(this).children().prop('href').toString();
+    id = id.split("#");
+    $("#" + id[1]).addClass("active");
+
+
+    // $("#"+id).addClass("active");
+});
+
+function submitForm(a) {
+    a.on('submit', (function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+		formData.append('firstname',$("#example-firstname-input").val());
+		formData.append('lastname',$("#example-lastname-input").val());
+		formData.append('age',$("#example-age-input").val());
+		formData.append('dob',$("#example-dob-input").val());
+		formData.append('gender',$("#example-gender-input").val());
+		formData.append('phone',$("#example-phone-input").val());
+		formData.append('freetext',$("#example-freetext-input").val());
+        $.ajax({
+            beforeSend: function() {
+            },
+            url: "http://localhost:8080/dashboard/insertPatientInfo.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+			  $("#snackbar").empty();
+                $("#snackbar").append("1 record added successfully..!");
+             myFunction();
+			 $("#fm").trigger("reset");
+            }
+        });
+        
+		a.unbind('submit');
+    }));
+    a.submit();
+}
+
+function showError(a){
+$('#DtOfInc').show();
+$(a).hide();
+}
+function myFunction() {
+    var x = document.getElementById("snackbar")
+    x.className = "show";
+    setTimeout(function() {
+        x.className = x.className.replace("show", "");
+    }, 2000);
+}
+
+function onlyAlphabets(e,a) {
+	$(a).css('color', 'gray');
+    var regex = /^[0-9A-Za-z\s\-]+$/;
+    var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    e.preventDefault();
+    return false;
+
+}
+function validateForm(a){
+var flag=false;
+var firstname=$("#example-firstname-input");
+var lastname=$("#example-lastname-input");
+var dob=$("#example-dob-input");
+var gender=$("#example-gender-input");
+var phone=$("#example-phone-input");
+var age=$("#example-age-input");
+var comment=$("#example-freetext-input");
+var ageError=$("#example-ageError-input");
+if(firstname.val()==""){
+	firstname.val('firstname required');
+	firstname.css("color","red");
+	flag=true;
+}
+if(lastname.val()==""){
+	lastname.val('lastname required');
+	lastname.css("color","red");
+	flag=true;
+}
+if(dob.val()==""){
+	dob.val('date of birth required');
+	dob.css("color","red");
+	flag=true;
+}
+if(gender.val()=="select gender"){
+	gender.focus();
+	flag=true;
+}
+if(phone.val()==""){
+	phone.val('phone no required');
+	phone.css("color","red");
+	flag=true;
+}
+if(age.val()==""){
+	ageError.show();
+	age.hide();
+	//age.css("color","red");
+	flag=true;
+}
+var form=$(a).parent().parent();
+console.log(form);
+if(!flag)
+submitForm(form);
+}
+$(document).ready(function() {
+$('#patientDetail').DataTable();
+console.log( $("#js-submit"));
+    $("#js-submit").click(function() {
+	console.log("eeewew");
+        validateForm(this);
+    });
+
+
+    htmlbodyHeightUpdate()
+    $(window).resize(function() {
+        htmlbodyHeightUpdate()
+    });
+    $(window).scroll(function() {
+        height2 = $('.main').height()
+        htmlbodyHeightUpdate()
+    });
+});
+
+$(function() {
+
+
+    var obj = $(".drop");
+
+    obj.on('dragenter', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    obj.on('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+    });
+
+    obj.on('drop', function(e) {
+
+        e.preventDefault();
+        var files = e.originalEvent.dataTransfer.files;
+        onFileSelected(e, files);
+    });
+
+
+});
+function isValidDate(date){
+	 var re = /^(\d{2})[-\/](\d{2})[-\/](\d{4})$/;
+     var match = re.exec(date);
+	 if(match!=null){
+    var test    =   new Date(match[3], match[1] - 1, match[2]);
+    return (
+        (test.getMonth() == match[1] - 1) &&
+        (test.getDate() == match[2]) &&
+        (test.getFullYear() == match[3])
+    );
+	}
+	else return false;
+}
+function testThis(val) {
+
+    var string = $.trim(val);
+    var patt = /^[0-9A-Za-z\s\-]+$/;
+    if (patt.test(string.toLowerCase()))
+        return true;
+    else {
+        return false;
+    }
+}
+</script>
+</body>
+</html>
